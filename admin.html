@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -10,9 +9,7 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    CBA Suite - Administración
-  </title>
+  <title>CBA Suite - Administración</title>
 
   <style>
 
@@ -27,15 +24,22 @@
       color: #1f2937;
     }
 
-    /* =====================================================
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    /* ===============================
        LOGIN
-    ===================================================== */
+    =============================== */
 
     #loginView {
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       padding: 20px;
     }
 
@@ -44,139 +48,121 @@
       max-width: 420px;
       background: white;
       border-radius: 16px;
-      padding: 32px;
-      box-shadow:
-        0 10px 30px
-        rgba(0, 0, 0, 0.12);
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.12);
     }
 
-    .login-title {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .login-title h1 {
+    .login-box h1 {
       margin: 0;
-      font-size: 28px;
+      text-align: center;
     }
 
-    .login-title p {
-      margin-top: 8px;
+    .login-box p {
+      text-align: center;
       color: #6b7280;
     }
 
-    .form-group {
-      margin-bottom: 18px;
+    .campo {
+      margin-bottom: 15px;
     }
 
-    .form-group label {
+    .campo label {
       display: block;
-      margin-bottom: 7px;
       font-weight: bold;
+      margin-bottom: 6px;
     }
 
-    .form-group input {
+    .campo input,
+    .campo select,
+    .campo textarea {
       width: 100%;
-      padding: 13px;
+      padding: 11px;
       border: 1px solid #d1d5db;
       border-radius: 8px;
-      font-size: 16px;
     }
 
-    .form-group input:focus {
-      outline: none;
-      border-color: #374151;
-    }
-
-    .btn-login {
-      width: 100%;
+    .btn {
       border: none;
-      background: #111827;
-      color: white;
-      padding: 14px;
       border-radius: 8px;
-      font-size: 16px;
+      padding: 10px 16px;
       cursor: pointer;
     }
 
-    .btn-login:hover {
-      background: #1f2937;
+    .btn-primary {
+      background: #2563eb;
+      color: white;
     }
 
-    .btn-login:disabled {
-      opacity: 0.6;
-      cursor: wait;
+    .btn-dark {
+      background: #111827;
+      color: white;
     }
 
-    #loginMensaje {
-      margin-top: 15px;
-      text-align: center;
+    .btn-light {
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .btn-block {
+      width: 100%;
+    }
+
+    .mensaje {
       min-height: 20px;
-      color: #dc2626;
+      margin-top: 12px;
+      text-align: center;
     }
 
-    /* =====================================================
-       ADMINISTRACIÓN
-    ===================================================== */
+    /* ===============================
+       ADMIN
+    =============================== */
 
     #adminView {
       display: none;
     }
 
     .topbar {
-      height: 70px;
+      min-height: 70px;
       background: #111827;
       color: white;
+      padding: 12px 24px;
+
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 0 25px;
+      align-items: center;
+      gap: 20px;
     }
 
     .topbar h1 {
-      font-size: 22px;
       margin: 0;
+      font-size: 22px;
     }
 
-    .usuario-area {
+    .top-actions {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
 
-    .usuario-info {
+    .usuario {
       text-align: right;
-      font-size: 14px;
+      font-size: 13px;
     }
 
-    .usuario-info span {
+    .usuario span {
       display: block;
-      opacity: 0.7;
-      font-size: 12px;
+      opacity: .7;
     }
 
-    .btn-salir {
-      border: 1px solid rgba(255,255,255,0.4);
-      background: transparent;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 7px;
-      cursor: pointer;
-    }
-
-    .btn-salir:hover {
-      background: rgba(255,255,255,0.1);
-    }
-
-    /* =====================================================
-       NAVEGACIÓN
-    ===================================================== */
+    /* ===============================
+       TABS
+    =============================== */
 
     .tabs {
-      background: white;
       display: flex;
-      gap: 5px;
-      padding: 12px 25px;
+      gap: 8px;
+      padding: 12px 24px;
+      background: white;
       border-bottom: 1px solid #e5e7eb;
       overflow-x: auto;
     }
@@ -184,10 +170,10 @@
     .tab {
       border: none;
       background: transparent;
-      padding: 11px 18px;
-      border-radius: 7px;
+      padding: 10px 15px;
+      border-radius: 8px;
       cursor: pointer;
-      font-size: 14px;
+      white-space: nowrap;
     }
 
     .tab.active {
@@ -195,226 +181,261 @@
       color: white;
     }
 
-    .tab.disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-
-    /* =====================================================
+    /* ===============================
        CONTENIDO
-    ===================================================== */
+    =============================== */
 
     .container {
       max-width: 1400px;
       margin: auto;
-      padding: 25px;
+      padding: 24px;
     }
 
-    .titulo-seccion {
-      margin-bottom: 20px;
+    .panel {
+      display: none;
     }
 
-    .titulo-seccion h2 {
-      margin-bottom: 5px;
+    .panel.active {
+      display: block;
     }
 
-    .titulo-seccion p {
-      margin: 0;
-      color: #6b7280;
+    .panel h2 {
+      margin-top: 0;
     }
 
-    /* =====================================================
-       FILTROS
-    ===================================================== */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
 
-    .filtros {
       background: white;
+      padding: 15px;
       border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 20px;
-      display: grid;
-      grid-template-columns:
-        minmax(250px, 1fr)
-        200px
-        180px
-        auto;
-      gap: 12px;
-      align-items: center;
-      box-shadow:
-        0 2px 8px
-        rgba(0,0,0,0.05);
+      margin-bottom: 16px;
     }
 
-    .filtros input,
-    .filtros select {
-      width: 100%;
-      padding: 11px;
+    .toolbar input,
+    .toolbar select {
+      padding: 10px;
       border: 1px solid #d1d5db;
       border-radius: 7px;
-      font-size: 14px;
     }
 
-    .checkbox-area {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-      white-space: nowrap;
+    .toolbar .grow {
+      flex: 1;
+      min-width: 240px;
     }
 
-    .checkbox-area input {
-      width: auto;
-    }
-
-    .btn-buscar {
-      border: none;
-      background: #2563eb;
-      color: white;
-      padding: 11px 20px;
-      border-radius: 7px;
-      cursor: pointer;
-    }
-
-    .btn-buscar:hover {
-      background: #1d4ed8;
-    }
-
-    /* =====================================================
-       RESUMEN
-    ===================================================== */
-
-    .resumen {
-      margin-bottom: 12px;
-      color: #6b7280;
-      font-size: 14px;
-    }
-
-    /* =====================================================
-       TABLA
-    ===================================================== */
-
-    .tabla-contenedor {
+    .card {
       background: white;
       border-radius: 12px;
-      overflow: hidden;
-      box-shadow:
-        0 2px 8px
-        rgba(0,0,0,0.05);
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.05);
+    }
+
+    /* ===============================
+       TABLA BOMBEROS
+    =============================== */
+
+    .tabla {
+      overflow-x: auto;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-    }
-
-    thead {
-      background: #f9fafb;
+      min-width: 900px;
     }
 
     th,
     td {
-      padding: 13px 15px;
+      padding: 11px 12px;
       border-bottom: 1px solid #e5e7eb;
       text-align: left;
       font-size: 14px;
     }
 
     th {
-      font-weight: 600;
-      color: #4b5563;
-    }
-
-    tr:hover td {
       background: #f9fafb;
     }
 
     .foto {
-      width: 44px;
-      height: 44px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       object-fit: cover;
-      background: #e5e7eb;
+      background: #ddd;
     }
 
-    .nombre {
-      font-weight: 600;
-    }
-
-    .rut {
-      font-size: 12px;
+    .small {
       color: #6b7280;
-      margin-top: 3px;
+      font-size: 12px;
     }
 
     .badge {
       display: inline-block;
-      padding: 5px 9px;
-      border-radius: 20px;
+      padding: 4px 8px;
+      border-radius: 999px;
       font-size: 12px;
-      font-weight: 600;
     }
 
-    .badge-activo {
+    .ok {
       background: #dcfce7;
       color: #166534;
     }
 
-    .badge-inactivo {
+    .no {
       background: #fee2e2;
       color: #991b1b;
     }
 
-    .badge-cuartelero {
+    .info {
       background: #dbeafe;
       color: #1e40af;
     }
 
-    .btn-editar {
-      border: 1px solid #d1d5db;
+    /* ===============================
+       GRID
+    =============================== */
+
+    .grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+
+    .unidad-card,
+    .config-card {
       background: white;
-      padding: 7px 12px;
-      border-radius: 6px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 14px;
+    }
+
+    .unidad-card h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    .unidad-card .dato {
+      margin: 5px 0;
+    }
+
+    /* ===============================
+       CONDUCTORES
+    =============================== */
+
+    .select-persona {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      margin-top: 8px;
+      margin-bottom: 15px;
+    }
+
+    .checks {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(180px,1fr));
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .check-unidad {
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      padding: 11px;
+      background: white;
+    }
+
+    .check-unidad label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
       cursor: pointer;
     }
 
-    .btn-editar:hover {
-      background: #f3f4f6;
+    .check-unidad input {
+      width: 20px;
+      height: 20px;
     }
 
-    /* =====================================================
-       ESTADOS
-    ===================================================== */
+    /* ===============================
+       CONFIG
+    =============================== */
 
-    .cargando,
-    .sin-resultados {
-      padding: 50px;
-      text-align: center;
-      color: #6b7280;
+    .config-card strong {
+      display: block;
+      margin-bottom: 8px;
     }
 
-    /* =====================================================
-       MÓVIL
-    ===================================================== */
+    .config-card input {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      margin-bottom: 10px;
+    }
 
-    @media (max-width: 900px) {
+    /* ===============================
+       MODALES
+    =============================== */
 
-      .filtros {
-        grid-template-columns: 1fr;
+    .modal-bg {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+
+      background: rgba(0,0,0,.55);
+
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    .modal {
+      width: 100%;
+      max-width: 560px;
+
+      background: white;
+      border-radius: 14px;
+      padding: 22px;
+
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+    }
+
+    .modal-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    @media (max-width:700px) {
+
+      .container {
+        padding: 14px;
       }
 
-      .tabla-contenedor {
-        overflow-x: auto;
+      .tabs {
+        padding: 10px 12px;
       }
 
-      table {
-        min-width: 850px;
-      }
-
-      .topbar {
-        padding: 0 15px;
-      }
-
-      .usuario-info {
+      .usuario {
         display: none;
+      }
+
+      .toolbar > * {
+        width: 100%;
       }
 
     }
@@ -423,178 +444,163 @@
 
 </head>
 
+
 <body>
 
-  <!-- =====================================================
-       LOGIN
-  ====================================================== -->
+<!-- ==========================================
+     LOGIN
+=========================================== -->
 
-  <div id="loginView">
+<div id="loginView">
 
-    <div class="login-box">
+  <div class="login-box">
 
-      <div class="login-title">
+    <h1>CBA Suite</h1>
 
-        <h1>
-          CBA Suite
-        </h1>
+    <p>Administración</p>
 
-        <p>
-          Administración
-        </p>
+    <form onsubmit="iniciarSesion(event)">
+
+      <div class="campo">
+
+        <label>Usuario</label>
+
+        <input
+          id="usuario"
+          autocomplete="username"
+          required
+        >
 
       </div>
 
-      <form
-        id="loginForm"
-        onsubmit="iniciarSesion(event)"
-      >
+      <div class="campo">
 
-        <div class="form-group">
+        <label>Contraseña</label>
 
-          <label for="usuario">
-            Usuario
-          </label>
-
-          <input
-            id="usuario"
-            type="text"
-            autocomplete="username"
-            required
-          >
-
-        </div>
-
-        <div class="form-group">
-
-          <label for="clave">
-            Contraseña
-          </label>
-
-          <input
-            id="clave"
-            type="password"
-            autocomplete="current-password"
-            required
-          >
-
-        </div>
-
-        <button
-          id="btnLogin"
-          class="btn-login"
-          type="submit"
+        <input
+          id="clave"
+          type="password"
+          autocomplete="current-password"
+          required
         >
-          Ingresar
-        </button>
 
-        <div id="loginMensaje"></div>
+      </div>
 
-      </form>
+      <button
+        id="btnLogin"
+        class="btn btn-dark btn-block"
+        type="submit"
+      >
+        Ingresar
+      </button>
 
-    </div>
+      <div
+        id="loginMensaje"
+        class="mensaje"
+      ></div>
+
+    </form>
 
   </div>
 
+</div>
 
-  <!-- =====================================================
-       ADMINISTRACIÓN
-  ====================================================== -->
 
-  <div id="adminView">
+<!-- ==========================================
+     ADMIN
+=========================================== -->
 
-    <header class="topbar">
+<div id="adminView">
 
-      <h1>
-        CBA Suite — Administración
-      </h1>
+  <header class="topbar">
 
-      <div class="usuario-area">
+    <h1>CBA Suite — Administración</h1>
 
-        <div class="usuario-info">
+    <div class="top-actions">
 
-          <strong id="nombreUsuario">
-            -
-          </strong>
+      <div class="usuario">
 
-          <span id="rolUsuario">
-            -
-          </span>
+        <strong id="nombreUsuario"></strong>
 
-        </div>
-
-        <button
-          class="btn-salir"
-          onclick="cerrarSesion()"
-        >
-          Salir
-        </button>
+        <span id="rolUsuario"></span>
 
       </div>
 
-    </header>
-
-
-    <nav class="tabs">
-
       <button
-        class="tab active"
+        class="btn btn-light"
+        onclick="cerrarSesion()"
       >
-        Bomberos
+        Salir
       </button>
 
-      <button
-        class="tab disabled"
-        title="Próxima etapa"
-      >
-        Unidades
-      </button>
+    </div>
 
-      <button
-        class="tab disabled"
-        title="Próxima etapa"
-      >
-        Conductores
-      </button>
-
-      <button
-        class="tab disabled"
-        title="Próxima etapa"
-      >
-        Configuración
-      </button>
-
-    </nav>
+  </header>
 
 
-    <main class="container">
+  <!-- TABS -->
 
-      <div class="titulo-seccion">
+  <nav class="tabs">
 
-        <h2>
-          Bomberos
-        </h2>
+    <button
+      class="tab active"
+      data-tab="bomberos"
+      onclick="cambiarTab('bomberos')"
+    >
+      Bomberos
+    </button>
 
-        <p>
-          Consulta y administración del personal registrado.
-        </p>
+    <button
+      class="tab"
+      data-tab="unidades"
+      onclick="cambiarTab('unidades')"
+    >
+      Unidades
+    </button>
 
-      </div>
+    <button
+      class="tab"
+      data-tab="conductores"
+      onclick="cambiarTab('conductores')"
+    >
+      Conductores
+    </button>
+
+    <button
+      class="tab"
+      data-tab="configuracion"
+      onclick="cambiarTab('configuracion')"
+    >
+      Configuración
+    </button>
+
+  </nav>
 
 
-      <!-- FILTROS -->
+  <main class="container">
 
-      <div class="filtros">
+
+    <!-- ====================================
+         BOMBEROS
+    ===================================== -->
+
+    <section
+      id="panel-bomberos"
+      class="panel active"
+    >
+
+      <h2>Bomberos</h2>
+
+      <div class="toolbar">
 
         <input
-          id="buscar"
-          type="text"
-          placeholder="Buscar por nombre, RUT o registro..."
-          onkeyup="buscarEnter(event)"
+          id="buscarBombero"
+          class="grow"
+          placeholder="Nombre, RUT o registro..."
+          onkeyup="if(event.key==='Enter') cargarBomberos()"
         >
 
-
-        <select id="filtroCuartel">
+        <select id="filtroCuartelBombero">
 
           <option value="">
             Todos los cuarteles
@@ -618,11 +624,10 @@
 
         </select>
 
-
-        <label class="checkbox-area">
+        <label>
 
           <input
-            id="soloActivos"
+            id="soloActivosBombero"
             type="checkbox"
           >
 
@@ -630,9 +635,8 @@
 
         </label>
 
-
         <button
-          class="btn-buscar"
+          class="btn btn-primary"
           onclick="cargarBomberos()"
         >
           Buscar
@@ -641,987 +645,2148 @@
       </div>
 
 
-      <div
-        id="resumen"
-        class="resumen"
-      >
-      </div>
+      <div class="card tabla">
 
-
-      <!-- TABLA -->
-
-      <div class="tabla-contenedor">
-
-        <div
-          id="estadoCarga"
-          class="cargando"
-        >
-          Cargando...
-        </div>
-
-        <table
-          id="tablaBomberos"
-          style="display:none;"
-        >
+        <table>
 
           <thead>
 
             <tr>
 
-              <th>
-                Foto
-              </th>
+              <th>Foto</th>
 
-              <th>
-                Registro
-              </th>
+              <th>Registro</th>
 
-              <th>
-                Bombero
-              </th>
+              <th>Bombero</th>
 
-              <th>
-                Cargo
-              </th>
+              <th>Cargo</th>
 
-              <th>
-                Cuartel
-              </th>
+              <th>Cuartel</th>
 
-              <th>
-                Estado
-              </th>
+              <th>Activo</th>
 
-              <th>
-                Cuartelero
-              </th>
+              <th>Cuartelero</th>
 
-              <th>
-                Acción
-              </th>
+              <th></th>
 
             </tr>
 
           </thead>
 
-          <tbody id="tablaBody">
-          </tbody>
+          <tbody id="tablaBomberos"></tbody>
 
         </table>
 
       </div>
 
-    </main>
+    </section>
+
+
+    <!-- ====================================
+         UNIDADES
+    ===================================== -->
+
+    <section
+      id="panel-unidades"
+      class="panel"
+    >
+
+      <h2>Unidades</h2>
+
+      <div class="toolbar">
+
+        <button
+          class="btn btn-primary"
+          onclick="abrirUnidadNueva()"
+        >
+          + Nueva unidad
+        </button>
+
+        <button
+          class="btn btn-light"
+          onclick="cargarUnidades()"
+        >
+          Actualizar
+        </button>
+
+      </div>
+
+      <div
+        id="listaUnidades"
+        class="grid"
+      ></div>
+
+    </section>
+
+
+    <!-- ====================================
+         CONDUCTORES
+    ===================================== -->
+
+    <section
+      id="panel-conductores"
+      class="panel"
+    >
+
+      <h2>Habilitaciones de conductores</h2>
+
+      <div class="card">
+
+        <label>
+          <strong>Selecciona un bombero</strong>
+        </label>
+
+        <select
+          id="selectConductor"
+          class="select-persona"
+          onchange="cargarHabilitacionesSeleccionado()"
+        >
+        </select>
+
+        <div
+          id="datosConductor"
+          class="small"
+        ></div>
+
+        <div
+          id="checksUnidades"
+          class="checks"
+        ></div>
+
+        <div style="margin-top:18px;">
+
+          <button
+            class="btn btn-primary"
+            onclick="guardarHabilitaciones()"
+          >
+            Guardar habilitaciones
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ====================================
+         CONFIGURACIÓN
+    ===================================== -->
+
+    <section
+      id="panel-configuracion"
+      class="panel"
+    >
+
+      <h2>Configuración</h2>
+
+      <div class="toolbar">
+
+        <button
+          class="btn btn-primary"
+          onclick="agregarConfiguracion()"
+        >
+          + Nueva configuración
+        </button>
+
+        <button
+          class="btn btn-light"
+          onclick="cargarConfiguracion()"
+        >
+          Actualizar
+        </button>
+
+      </div>
+
+      <div
+        id="listaConfiguracion"
+        class="grid"
+      ></div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ==========================================
+     MODAL BOMBERO
+=========================================== -->
+
+<div
+  id="modalBombero"
+  class="modal-bg"
+>
+
+  <div class="modal">
+
+    <h2>Editar bombero</h2>
+
+    <div class="campo">
+
+      <label>Registro</label>
+
+      <input
+        id="editRegistro"
+        disabled
+      >
+
+    </div>
+
+    <div class="campo">
+
+      <label>RUT</label>
+
+      <input id="editRut">
+
+    </div>
+
+    <div class="campo">
+
+      <label>Nombre completo</label>
+
+      <input id="editNombre">
+
+    </div>
+
+    <div class="campo">
+
+      <label>Cargo</label>
+
+      <input id="editCargo">
+
+    </div>
+
+    <div class="campo">
+
+      <label>Cuartel</label>
+
+      <select id="editCuartel">
+
+        <option value="1">
+          1ª Compañía
+        </option>
+
+        <option value="2">
+          2ª Compañía
+        </option>
+
+        <option value="3">
+          3ª Compañía
+        </option>
+
+        <option value="general">
+          Cuartel General
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="campo">
+
+      <label>Activo</label>
+
+      <select id="editActivo">
+
+        <option value="SI">
+          Sí
+        </option>
+
+        <option value="NO">
+          No
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="campo">
+
+      <label>¿Es cuartelero?</label>
+
+      <select id="editCuartelero">
+
+        <option value="NO">
+          No
+        </option>
+
+        <option value="SI">
+          Sí
+        </option>
+
+      </select>
+
+    </div>
+
+    <div
+      id="msgBombero"
+      class="mensaje"
+    ></div>
+
+    <div class="modal-actions">
+
+      <button
+        class="btn btn-light"
+        onclick="cerrarModal('modalBombero')"
+      >
+        Cancelar
+      </button>
+
+      <button
+        class="btn btn-primary"
+        onclick="guardarBombero()"
+      >
+        Guardar
+      </button>
+
+    </div>
 
   </div>
 
+</div>
 
-  <!-- =====================================================
-       CONFIGURACIÓN
-  ====================================================== -->
 
-  <script src="js/config.js"></script>
+<!-- ==========================================
+     MODAL UNIDAD
+=========================================== -->
 
+<div
+  id="modalUnidad"
+  class="modal-bg"
+>
 
-  <script>
+  <div class="modal">
 
-    let usuarioActual = null;
+    <h2 id="tituloModalUnidad">
+      Unidad
+    </h2>
 
+    <input
+      id="unidadOriginal"
+      type="hidden"
+    >
 
-    /* =====================================================
-       LOGIN
-    ===================================================== */
+    <div class="campo">
 
-    async function iniciarSesion(event) {
+      <label>
+        Identificador de unidad
+      </label>
 
-      event.preventDefault();
+      <input
+        id="unidadNombre"
+        placeholder="Ej: B-2"
+      >
 
+    </div>
 
-      const usuario =
-        document
-          .getElementById("usuario")
-          .value
-          .trim();
+    <div class="campo">
 
+      <label>Cuartel</label>
 
-      const clave =
-        document
-          .getElementById("clave")
-          .value
-          .trim();
+      <select id="unidadCuartel">
 
+        <option value="1">
+          1ª Compañía
+        </option>
 
-      const mensaje =
-        document
-          .getElementById("loginMensaje");
+        <option value="2">
+          2ª Compañía
+        </option>
 
+        <option value="3">
+          3ª Compañía
+        </option>
 
-      const boton =
-        document
-          .getElementById("btnLogin");
+        <option value="general">
+          Cuartel General
+        </option>
 
+      </select>
 
-      mensaje.textContent =
-        "Validando...";
+    </div>
 
+    <div class="campo">
 
-      mensaje.style.color =
-        "#6b7280";
+      <label>Estado</label>
 
+      <select id="unidadEstado">
 
-      boton.disabled =
-        true;
+        <option value="Sin conductor">
+          Sin conductor
+        </option>
 
+        <option value="Disponible">
+          Disponible
+        </option>
 
-      try {
+        <option value="Fuera de servicio">
+          Fuera de servicio
+        </option>
 
+      </select>
 
-        const url =
-          CONFIG.API_URL +
+    </div>
 
-          "?action=login" +
+    <div class="campo">
 
-          "&usuario=" +
-          encodeURIComponent(usuario) +
+      <label>Activa</label>
 
-          "&clave=" +
-          encodeURIComponent(clave);
+      <select id="unidadActiva">
 
+        <option value="SI">
+          Sí
+        </option>
 
-        const respuesta =
-          await fetch(url);
+        <option value="NO">
+          No
+        </option>
 
+      </select>
 
-        const data =
-          await respuesta.json();
+    </div>
 
+    <div class="campo">
 
-        if (!data.ok) {
+      <label>Observación</label>
 
-          mensaje.textContent =
-            data.mensaje ||
-            "No fue posible iniciar sesión";
+      <textarea
+        id="unidadObservacion"
+        rows="3"
+      ></textarea>
 
+    </div>
 
-          mensaje.style.color =
-            "#dc2626";
+    <div
+      id="msgUnidad"
+      class="mensaje"
+    ></div>
 
+    <div class="modal-actions">
 
-          boton.disabled =
-            false;
+      <button
+        class="btn btn-light"
+        onclick="cerrarModal('modalUnidad')"
+      >
+        Cancelar
+      </button>
 
+      <button
+        class="btn btn-primary"
+        onclick="guardarUnidad()"
+      >
+        Guardar
+      </button>
 
-          return;
+    </div>
 
-        }
+  </div>
 
+</div>
 
-        /* =============================
-           VALIDAMOS ROL
-        ============================= */
 
-        if (
+<script src="js/config.js"></script>
 
-          String(data.rol)
-            .toUpperCase() !== "ADMIN"
 
-        ) {
+<script>
 
+let usuarioActual = null;
 
-          mensaje.textContent =
-            "Este usuario no tiene permisos de administración";
+let listaBomberos = [];
 
+let listaUnidades = [];
 
-          mensaje.style.color =
-            "#dc2626";
+let listaConductores = [];
 
 
-          boton.disabled =
-            false;
+/* ==========================================
+   API
+=========================================== */
 
+async function getApi(query) {
 
-          return;
+  const respuesta =
+    await fetch(
+      CONFIG.API_URL + "?" + query
+    );
 
-        }
+  return await respuesta.json();
 
+}
 
-        usuarioActual = {
 
-          usuario:
-            data.usuario,
+/* ==========================================
+   UTILIDADES
+=========================================== */
 
-          rol:
-            data.rol,
+function esc(valor) {
 
-          cuartel:
-            data.cuartel
+  return String(
+    valor ?? ""
+  )
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 
-        };
+}
 
 
-        /*
-         * Guardamos únicamente los datos
-         * básicos de la sesión.
-         *
-         * NO guardamos la contraseña.
-         */
+function nombreCuartel(cuartel) {
 
-        sessionStorage.setItem(
+  return (
+    CONFIG.CUARTELES[cuartel] ||
+    cuartel ||
+    "-"
+  );
 
-          "cba_admin",
+}
 
-          JSON.stringify(
-            usuarioActual
-          )
 
-        );
+function abrirModal(id) {
 
+  document
+    .getElementById(id)
+    .style.display =
+    "flex";
 
-        mostrarAdministracion();
+}
 
 
-      } catch (error) {
+function cerrarModal(id) {
 
+  document
+    .getElementById(id)
+    .style.display =
+    "none";
 
-        console.error(error);
+}
 
 
-        mensaje.textContent =
-          "Error de conexión con el servidor";
+/* ==========================================
+   LOGIN
+=========================================== */
 
+async function iniciarSesion(event) {
 
-        mensaje.style.color =
-          "#dc2626";
+  event.preventDefault();
 
 
-        boton.disabled =
-          false;
+  const usuario =
+    document
+      .getElementById("usuario")
+      .value
+      .trim();
 
-      }
 
-    }
+  const clave =
+    document
+      .getElementById("clave")
+      .value
+      .trim();
 
 
-    /* =====================================================
-       MOSTRAR ADMINISTRACIÓN
-    ===================================================== */
+  const msg =
+    document
+      .getElementById("loginMensaje");
 
-    function mostrarAdministracion() {
 
-      document
-        .getElementById("loginView")
-        .style.display =
-        "none";
+  msg.textContent =
+    "Validando...";
 
 
-      document
-        .getElementById("adminView")
-        .style.display =
-        "block";
+  try {
 
+    const data =
+      await getApi(
 
-      document
-        .getElementById("nombreUsuario")
-        .textContent =
-        usuarioActual.usuario;
+        "action=login" +
 
+        "&usuario=" +
+        encodeURIComponent(usuario) +
 
-      document
-        .getElementById("rolUsuario")
-        .textContent =
-        usuarioActual.rol;
+        "&clave=" +
+        encodeURIComponent(clave)
 
-
-      cargarBomberos();
-
-    }
-
-
-    /* =====================================================
-       CERRAR SESIÓN
-    ===================================================== */
-
-    function cerrarSesion() {
-
-      sessionStorage.removeItem(
-        "cba_admin"
       );
 
 
-      usuarioActual =
-        null;
+    if (!data.ok) {
 
+      msg.textContent =
+        data.mensaje ||
+        "Acceso rechazado";
 
-      document
-        .getElementById("adminView")
-        .style.display =
-        "none";
-
-
-      document
-        .getElementById("loginView")
-        .style.display =
-        "flex";
-
-
-      document
-        .getElementById("clave")
-        .value =
-        "";
-
-
-      document
-        .getElementById("loginMensaje")
-        .textContent =
-        "";
+      return;
 
     }
 
 
-    /* =====================================================
-       CARGAR BOMBEROS
-    ===================================================== */
+    if (
+      String(data.rol)
+        .toUpperCase() !==
+      "ADMIN"
+    ) {
 
-    async function cargarBomberos() {
+      msg.textContent =
+        "Sin permisos de administración";
 
-      const estadoCarga =
-        document
-          .getElementById("estadoCarga");
+      return;
 
-
-      const tabla =
-        document
-          .getElementById("tablaBomberos");
+    }
 
 
-      estadoCarga.style.display =
-        "block";
+    usuarioActual = {
+
+      usuario:
+        data.usuario,
+
+      rol:
+        data.rol,
+
+      cuartel:
+        data.cuartel
+
+    };
 
 
-      estadoCarga.textContent =
-        "Cargando bomberos...";
+    sessionStorage.setItem(
+
+      "cba_admin",
+
+      JSON.stringify(
+        usuarioActual
+      )
+
+    );
 
 
-      tabla.style.display =
-        "none";
+    mostrarAdmin();
 
 
-      const buscar =
-        document
-          .getElementById("buscar")
-          .value
-          .trim();
+  } catch (error) {
+
+    console.error(error);
+
+    msg.textContent =
+      "Error de conexión";
+
+  }
+
+}
 
 
-      const cuartel =
-        document
-          .getElementById("filtroCuartel")
-          .value;
+/* ==========================================
+   MOSTRAR ADMIN
+=========================================== */
+
+function mostrarAdmin() {
+
+  document
+    .getElementById("loginView")
+    .style.display =
+    "none";
 
 
-      const soloActivos =
-        document
-          .getElementById("soloActivos")
-          .checked;
+  document
+    .getElementById("adminView")
+    .style.display =
+    "block";
 
 
-      try {
+  document
+    .getElementById("nombreUsuario")
+    .textContent =
+    usuarioActual.usuario;
 
 
-        let url =
-          CONFIG.API_URL +
-          "?action=adminBomberos";
+  document
+    .getElementById("rolUsuario")
+    .textContent =
+    usuarioActual.rol;
 
 
-        if (buscar) {
+  cargarBomberos();
 
-          url +=
-
-            "&buscar=" +
-
-            encodeURIComponent(
-              buscar
-            );
-
-        }
+}
 
 
-        if (cuartel) {
+function cerrarSesion() {
 
-          url +=
+  sessionStorage.removeItem(
+    "cba_admin"
+  );
 
-            "&cuartel=" +
+  location.reload();
 
-            encodeURIComponent(
-              cuartel
-            );
-
-        }
+}
 
 
-        if (soloActivos) {
+/* ==========================================
+   TABS
+=========================================== */
 
-          url +=
-            "&soloActivos=SI";
+function cambiarTab(tab) {
 
-        }
+  document
+    .querySelectorAll(".tab")
+    .forEach(btn => {
 
+      btn.classList.toggle(
+        "active",
+        btn.dataset.tab === tab
+      );
 
-        const respuesta =
-          await fetch(url);
-
-
-        const data =
-          await respuesta.json();
-
-
-        if (!data.ok) {
-
-          estadoCarga.textContent =
-            data.mensaje ||
-            "No fue posible cargar los bomberos";
+    });
 
 
-          return;
+  document
+    .querySelectorAll(".panel")
+    .forEach(panel => {
 
-        }
+      panel.classList.remove(
+        "active"
+      );
+
+    });
 
 
-        mostrarBomberos(
-          data.bomberos || []
+  document
+    .getElementById(
+      "panel-" + tab
+    )
+    .classList.add(
+      "active"
+    );
+
+
+  if (tab === "unidades") {
+
+    cargarUnidades();
+
+  }
+
+
+  if (tab === "conductores") {
+
+    cargarBaseHabilitaciones();
+
+  }
+
+
+  if (tab === "configuracion") {
+
+    cargarConfiguracion();
+
+  }
+
+}
+
+
+/* ==========================================
+   BOMBEROS
+=========================================== */
+
+async function cargarBomberos() {
+
+  let query =
+    "action=adminBomberos";
+
+
+  const buscar =
+    document
+      .getElementById(
+        "buscarBombero"
+      )
+      .value
+      .trim();
+
+
+  const cuartel =
+    document
+      .getElementById(
+        "filtroCuartelBombero"
+      )
+      .value;
+
+
+  const soloActivos =
+    document
+      .getElementById(
+        "soloActivosBombero"
+      )
+      .checked;
+
+
+  if (buscar) {
+
+    query +=
+
+      "&buscar=" +
+
+      encodeURIComponent(
+        buscar
+      );
+
+  }
+
+
+  if (cuartel) {
+
+    query +=
+
+      "&cuartel=" +
+
+      encodeURIComponent(
+        cuartel
+      );
+
+  }
+
+
+  if (soloActivos) {
+
+    query +=
+      "&soloActivos=SI";
+
+  }
+
+
+  try {
+
+    const data =
+      await getApi(query);
+
+
+    if (!data.ok) {
+
+      alert(
+        data.mensaje ||
+        "No fue posible cargar bomberos"
+      );
+
+      return;
+
+    }
+
+
+    listaBomberos =
+      data.bomberos || [];
+
+
+    const tbody =
+      document
+        .getElementById(
+          "tablaBomberos"
         );
 
 
-      } catch (error) {
-
-
-        console.error(error);
-
-
-        estadoCarga.textContent =
-          "Error al conectar con la base de datos";
-
-      }
-
-    }
-
-
-    /* =====================================================
-       MOSTRAR BOMBEROS
-    ===================================================== */
-
-    function mostrarBomberos(bomberos) {
-
-      const body =
-        document
-          .getElementById("tablaBody");
-
-
-      const tabla =
-        document
-          .getElementById("tablaBomberos");
-
-
-      const estadoCarga =
-        document
-          .getElementById("estadoCarga");
-
-
-      const resumen =
-        document
-          .getElementById("resumen");
-
-
-      body.innerHTML =
-        "";
-
-
-      resumen.textContent =
-
-        bomberos.length === 1
-
-          ? "1 bombero encontrado"
-
-          : `${bomberos.length} bomberos encontrados`;
-
-
-      if (
-        bomberos.length === 0
-      ) {
-
-
-        estadoCarga.style.display =
-          "block";
-
-
-        estadoCarga.textContent =
-          "No se encontraron bomberos";
-
-
-        tabla.style.display =
-          "none";
-
-
-        return;
-
-      }
-
-
-      bomberos.forEach(
+    tbody.innerHTML =
+      listaBomberos.map(
         bombero => {
 
 
-          const fila =
-            document.createElement(
-              "tr"
-            );
-
-
-          /* =============================
-             FOTO
-          ============================= */
-
-          const tdFoto =
-            document.createElement(
-              "td"
-            );
-
-
-          const foto =
-            document.createElement(
-              "img"
-            );
-
-
-          foto.className =
-            "foto";
-
-
-          foto.src =
-            bombero.foto ||
-            CONFIG.FOTO_DEFAULT;
-
-
-          foto.onerror =
-            function () {
-
-              this.onerror =
-                null;
-
-              this.src =
-                CONFIG.FOTO_DEFAULT;
-
-            };
-
-
-          tdFoto.appendChild(
-            foto
-          );
-
-
-          /* =============================
-             REGISTRO
-          ============================= */
-
-          const tdRegistro =
-            document.createElement(
-              "td"
-            );
-
-
-          tdRegistro.textContent =
-            bombero.registro ||
-            "-";
-
-
-          /* =============================
-             NOMBRE / RUT
-          ============================= */
-
-          const tdNombre =
-            document.createElement(
-              "td"
-            );
-
-
-          const nombre =
-            document.createElement(
-              "div"
-            );
-
-
-          nombre.className =
-            "nombre";
-
-
-          nombre.textContent =
-            bombero.nombre ||
-            "Sin nombre";
-
-
-          const rut =
-            document.createElement(
-              "div"
-            );
-
-
-          rut.className =
-            "rut";
-
-
-          rut.textContent =
-            bombero.rut ||
-            "";
-
-
-          tdNombre.appendChild(
-            nombre
-          );
-
-
-          tdNombre.appendChild(
-            rut
-          );
-
-
-          /* =============================
-             CARGO
-          ============================= */
-
-          const tdCargo =
-            document.createElement(
-              "td"
-            );
-
-
-          tdCargo.textContent =
-            bombero.cargo ||
-            "-";
-
-
-          /* =============================
-             CUARTEL
-          ============================= */
-
-          const tdCuartel =
-            document.createElement(
-              "td"
-            );
-
-
-          tdCuartel.textContent =
-
-            CONFIG.CUARTELES[
-              bombero.cuartel
-            ]
-
-            ||
-
-            bombero.cuartel
-
-            ||
-
-            "-";
-
-
-          /* =============================
-             ACTIVO
-          ============================= */
-
-          const tdEstado =
-            document.createElement(
-              "td"
-            );
-
-
-          const badgeEstado =
-            document.createElement(
-              "span"
-            );
-
-
-          const estaActivo =
+          const activo =
 
             String(
               bombero.activo
             )
               .trim()
               .toUpperCase() ===
-              "SI";
+            "SI";
 
 
-          badgeEstado.className =
-
-            estaActivo
-
-              ? "badge badge-activo"
-
-              : "badge badge-inactivo";
-
-
-          badgeEstado.textContent =
-
-            estaActivo
-
-              ? "Activo"
-
-              : "Inactivo";
-
-
-          tdEstado.appendChild(
-            badgeEstado
-          );
-
-
-          /* =============================
-             CUARTELERO
-          ============================= */
-
-          const tdCuartelero =
-            document.createElement(
-              "td"
-            );
-
-
-          const esCuartelero =
+          const cuartelero =
 
             String(
               bombero.esCuartelero
             )
               .trim()
               .toUpperCase() ===
-              "SI";
+            "SI";
 
 
-          if (esCuartelero) {
+          const foto =
+
+            bombero.foto ||
+
+            CONFIG.FOTO_DEFAULT;
 
 
-            const badge =
-              document.createElement(
-                "span"
-              );
+          return `
 
+            <tr>
 
-            badge.className =
-              "badge badge-cuartelero";
+              <td>
 
+                <img
+                  class="foto"
+                  src="${esc(foto)}"
+                  onerror="
+                    this.onerror=null;
+                    this.src='${CONFIG.FOTO_DEFAULT}'
+                  "
+                >
 
-            badge.textContent =
-              "Sí";
+              </td>
 
+              <td>
+                ${esc(bombero.registro)}
+              </td>
 
-            tdCuartelero.appendChild(
-              badge
-            );
+              <td>
 
+                <strong>
+                  ${esc(bombero.nombre)}
+                </strong>
 
-          } else {
+                <div class="small">
+                  ${esc(bombero.rut)}
+                </div>
 
+              </td>
 
-            tdCuartelero.textContent =
-              "No";
+              <td>
+                ${esc(bombero.cargo)}
+              </td>
 
-          }
+              <td>
+                ${esc(
+                  nombreCuartel(
+                    bombero.cuartel
+                  )
+                )}
+              </td>
 
+              <td>
 
-          /* =============================
-             ACCIÓN
-          ============================= */
+                <span
+                  class="
+                    badge
+                    ${activo ? "ok" : "no"}
+                  "
+                >
 
-          const tdAccion =
-            document.createElement(
-              "td"
-            );
+                  ${
+                    activo
+                      ? "Activo"
+                      : "Inactivo"
+                  }
 
+                </span>
 
-          const boton =
-            document.createElement(
-              "button"
-            );
+              </td>
 
+              <td>
 
-          boton.className =
-            "btn-editar";
+                ${
+                  cuartelero
 
+                    ? '<span class="badge info">Sí</span>'
 
-          boton.textContent =
-            "Editar";
+                    : "No"
+                }
 
+              </td>
 
-          /*
-           * Todavía no activamos la edición.
-           * Es la siguiente etapa.
-           */
+              <td>
 
-          boton.onclick =
-            function () {
+                <button
+                  class="btn btn-light"
+                  onclick="editarBombero('${esc(
+                    bombero.registro
+                  )}')"
+                >
+                  Editar
+                </button>
 
-              alert(
+              </td>
 
-                "La edición de bomberos será la siguiente etapa."
+            </tr>
 
-              );
-
-            };
-
-
-          tdAccion.appendChild(
-            boton
-          );
-
-
-          /* =============================
-             AGREGAR CELDAS
-          ============================= */
-
-          fila.appendChild(
-            tdFoto
-          );
-
-          fila.appendChild(
-            tdRegistro
-          );
-
-          fila.appendChild(
-            tdNombre
-          );
-
-          fila.appendChild(
-            tdCargo
-          );
-
-          fila.appendChild(
-            tdCuartel
-          );
-
-          fila.appendChild(
-            tdEstado
-          );
-
-          fila.appendChild(
-            tdCuartelero
-          );
-
-          fila.appendChild(
-            tdAccion
-          );
-
-
-          body.appendChild(
-            fila
-          );
+          `;
 
         }
+      )
+      .join("");
 
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Error al conectar con la base"
+    );
+
+  }
+
+}
+
+
+function editarBombero(registro) {
+
+  const bombero =
+    listaBomberos.find(
+      b =>
+        String(b.registro) ===
+        String(registro)
+    );
+
+
+  if (!bombero) {
+    return;
+  }
+
+
+  document
+    .getElementById("editRegistro")
+    .value =
+    bombero.registro || "";
+
+
+  document
+    .getElementById("editRut")
+    .value =
+    bombero.rut || "";
+
+
+  document
+    .getElementById("editNombre")
+    .value =
+    bombero.nombre || "";
+
+
+  document
+    .getElementById("editCargo")
+    .value =
+    bombero.cargo || "";
+
+
+  document
+    .getElementById("editCuartel")
+    .value =
+    bombero.cuartel || "1";
+
+
+  document
+    .getElementById("editActivo")
+    .value =
+
+    String(
+      bombero.activo
+    )
+      .toUpperCase() ===
+    "NO"
+
+      ? "NO"
+
+      : "SI";
+
+
+  document
+    .getElementById("editCuartelero")
+    .value =
+
+    String(
+      bombero.esCuartelero
+    )
+      .toUpperCase() ===
+    "SI"
+
+      ? "SI"
+
+      : "NO";
+
+
+  document
+    .getElementById("msgBombero")
+    .textContent =
+    "";
+
+
+  abrirModal(
+    "modalBombero"
+  );
+
+}
+
+
+async function guardarBombero() {
+
+  const params =
+    new URLSearchParams({
+
+      action:
+        "actualizarBombero",
+
+      registro:
+        document
+          .getElementById(
+            "editRegistro"
+          )
+          .value,
+
+      rut:
+        document
+          .getElementById(
+            "editRut"
+          )
+          .value
+          .trim(),
+
+      nombre:
+        document
+          .getElementById(
+            "editNombre"
+          )
+          .value
+          .trim(),
+
+      cargo:
+        document
+          .getElementById(
+            "editCargo"
+          )
+          .value
+          .trim(),
+
+      cuartel:
+        document
+          .getElementById(
+            "editCuartel"
+          )
+          .value,
+
+      activo:
+        document
+          .getElementById(
+            "editActivo"
+          )
+          .value,
+
+      esCuartelero:
+        document
+          .getElementById(
+            "editCuartelero"
+          )
+          .value
+
+    });
+
+
+  const data =
+    await getApi(
+      params.toString()
+    );
+
+
+  document
+    .getElementById(
+      "msgBombero"
+    )
+    .textContent =
+    data.mensaje || "";
+
+
+  if (data.ok) {
+
+    await cargarBomberos();
+
+    setTimeout(
+      () =>
+        cerrarModal(
+          "modalBombero"
+        ),
+      500
+    );
+
+  }
+
+}
+
+
+/* ==========================================
+   UNIDADES
+=========================================== */
+
+async function cargarUnidades() {
+
+  try {
+
+    const data =
+      await getApi(
+        "action=adminUnidades"
       );
 
 
-      estadoCarga.style.display =
-        "none";
+    if (!data.ok) {
 
+      alert(
+        data.mensaje ||
+        "Error cargando unidades"
+      );
 
-      tabla.style.display =
-        "table";
-
-    }
-
-
-    /* =====================================================
-       ENTER EN BÚSQUEDA
-    ===================================================== */
-
-    function buscarEnter(event) {
-
-      if (
-        event.key ===
-        "Enter"
-      ) {
-
-        cargarBomberos();
-
-      }
+      return;
 
     }
 
 
-    /* =====================================================
-       RECUPERAR SESIÓN
-    ===================================================== */
-
-    window.addEventListener(
-
-      "DOMContentLoaded",
-
-      function () {
+    listaUnidades =
+      data.unidades || [];
 
 
-        const guardado =
-          sessionStorage.getItem(
-            "cba_admin"
-          );
+    const contenedor =
+      document
+        .getElementById(
+          "listaUnidades"
+        );
 
 
-        if (!guardado) {
+    contenedor.innerHTML =
 
-          document
-            .getElementById("estadoCarga")
-            .style.display =
-            "none";
-
-          return;
-
-        }
+      listaUnidades.map(
+        unidad => {
 
 
-        try {
-
-
-          usuarioActual =
-            JSON.parse(
-              guardado
-            );
-
-
-          if (
-
-            !usuarioActual ||
+          const activa =
 
             String(
-              usuarioActual.rol
+              unidad.activa
             )
-              .toUpperCase() !==
-              "ADMIN"
-
-          ) {
-
-
-            sessionStorage.removeItem(
-              "cba_admin"
-            );
+              .trim()
+              .toUpperCase() ===
+            "SI";
 
 
-            return;
+          return `
 
-          }
+            <div class="unidad-card">
 
+              <h3>
+                ${esc(unidad.unidad)}
+              </h3>
 
-          mostrarAdministracion();
+              <div class="dato">
+                ${esc(
+                  nombreCuartel(
+                    unidad.cuartel
+                  )
+                )}
+              </div>
 
+              <div class="small dato">
 
-        } catch (error) {
+                Estado:
 
+                <strong>
+                  ${esc(unidad.estado)}
+                </strong>
 
-          sessionStorage.removeItem(
-            "cba_admin"
-          );
+              </div>
+
+              <div class="small dato">
+
+                Principal:
+
+                ${esc(
+                  unidad.principalNombre ||
+                  "-"
+                )}
+
+              </div>
+
+              <div class="small dato">
+
+                Secundario:
+
+                ${esc(
+                  unidad.secundarioNombre ||
+                  "-"
+                )}
+
+              </div>
+
+              <div class="small dato">
+
+                Observación:
+
+                ${esc(
+                  unidad.observacion ||
+                  "-"
+                )}
+
+              </div>
+
+              <div style="margin:12px 0;">
+
+                <span
+                  class="
+                    badge
+                    ${activa ? "ok" : "no"}
+                  "
+                >
+
+                  ${
+                    activa
+                      ? "Activa"
+                      : "Inactiva"
+                  }
+
+                </span>
+
+              </div>
+
+              <button
+                class="btn btn-light"
+                onclick="editarUnidad('${esc(
+                  unidad.unidad
+                )}')"
+              >
+                Editar
+              </button>
+
+            </div>
+
+          `;
 
         }
+      )
+      .join("");
 
-      }
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Error cargando unidades"
+    );
+
+  }
+
+}
+
+
+function abrirUnidadNueva() {
+
+  document
+    .getElementById(
+      "tituloModalUnidad"
+    )
+    .textContent =
+    "Nueva unidad";
+
+
+  document
+    .getElementById(
+      "unidadOriginal"
+    )
+    .value =
+    "";
+
+
+  document
+    .getElementById(
+      "unidadNombre"
+    )
+    .value =
+    "";
+
+
+  document
+    .getElementById(
+      "unidadCuartel"
+    )
+    .value =
+    "1";
+
+
+  document
+    .getElementById(
+      "unidadEstado"
+    )
+    .value =
+    "Sin conductor";
+
+
+  document
+    .getElementById(
+      "unidadActiva"
+    )
+    .value =
+    "SI";
+
+
+  document
+    .getElementById(
+      "unidadObservacion"
+    )
+    .value =
+    "";
+
+
+  document
+    .getElementById(
+      "msgUnidad"
+    )
+    .textContent =
+    "";
+
+
+  abrirModal(
+    "modalUnidad"
+  );
+
+}
+
+
+function editarUnidad(nombre) {
+
+  const unidad =
+    listaUnidades.find(
+      u =>
+        String(u.unidad) ===
+        String(nombre)
+    );
+
+
+  if (!unidad) {
+    return;
+  }
+
+
+  document
+    .getElementById(
+      "tituloModalUnidad"
+    )
+    .textContent =
+    "Editar " +
+    unidad.unidad;
+
+
+  document
+    .getElementById(
+      "unidadOriginal"
+    )
+    .value =
+    unidad.unidad;
+
+
+  document
+    .getElementById(
+      "unidadNombre"
+    )
+    .value =
+    unidad.unidad;
+
+
+  document
+    .getElementById(
+      "unidadCuartel"
+    )
+    .value =
+    unidad.cuartel;
+
+
+  document
+    .getElementById(
+      "unidadEstado"
+    )
+    .value =
+    unidad.estado ||
+    "Sin conductor";
+
+
+  document
+    .getElementById(
+      "unidadActiva"
+    )
+    .value =
+
+    String(
+      unidad.activa
+    )
+      .toUpperCase() ===
+    "NO"
+
+      ? "NO"
+
+      : "SI";
+
+
+  document
+    .getElementById(
+      "unidadObservacion"
+    )
+    .value =
+    unidad.observacion || "";
+
+
+  document
+    .getElementById(
+      "msgUnidad"
+    )
+    .textContent =
+    "";
+
+
+  abrirModal(
+    "modalUnidad"
+  );
+
+}
+
+
+async function guardarUnidad() {
+
+  const params =
+    new URLSearchParams({
+
+      action:
+        "guardarUnidad",
+
+      unidadOriginal:
+        document
+          .getElementById(
+            "unidadOriginal"
+          )
+          .value,
+
+      unidad:
+        document
+          .getElementById(
+            "unidadNombre"
+          )
+          .value
+          .trim(),
+
+      cuartel:
+        document
+          .getElementById(
+            "unidadCuartel"
+          )
+          .value,
+
+      estado:
+        document
+          .getElementById(
+            "unidadEstado"
+          )
+          .value,
+
+      activa:
+        document
+          .getElementById(
+            "unidadActiva"
+          )
+          .value,
+
+      observacion:
+        document
+          .getElementById(
+            "unidadObservacion"
+          )
+          .value
+          .trim()
+
+    });
+
+
+  const data =
+    await getApi(
+      params.toString()
+    );
+
+
+  document
+    .getElementById(
+      "msgUnidad"
+    )
+    .textContent =
+    data.mensaje || "";
+
+
+  if (data.ok) {
+
+    await cargarUnidades();
+
+    setTimeout(
+      () =>
+        cerrarModal(
+          "modalUnidad"
+        ),
+      500
+    );
+
+  }
+
+}
+
+
+/* ==========================================
+   CONDUCTORES
+=========================================== */
+
+async function cargarBaseHabilitaciones() {
+
+  try {
+
+    const data =
+      await getApi(
+        "action=adminHabilitaciones"
+      );
+
+
+    if (!data.ok) {
+
+      alert(
+        data.mensaje ||
+        "Error cargando conductores"
+      );
+
+      return;
+
+    }
+
+
+    listaConductores =
+      data.bomberos || [];
+
+
+    const select =
+      document
+        .getElementById(
+          "selectConductor"
+        );
+
+
+    select.innerHTML =
+
+      '<option value="">Seleccione un bombero...</option>' +
+
+      listaConductores.map(
+        bombero => `
+
+          <option value="${esc(
+            bombero.registro
+          )}">
+
+            ${esc(bombero.nombre)}
+            —
+            ${esc(bombero.registro)}
+
+          </option>
+
+        `
+      )
+      .join("");
+
+
+    document
+      .getElementById(
+        "checksUnidades"
+      )
+      .innerHTML =
+      "";
+
+
+    document
+      .getElementById(
+        "datosConductor"
+      )
+      .textContent =
+      "";
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Error cargando conductores"
+    );
+
+  }
+
+}
+
+
+async function cargarHabilitacionesSeleccionado() {
+
+  const registro =
+    document
+      .getElementById(
+        "selectConductor"
+      )
+      .value;
+
+
+  if (!registro) {
+
+    document
+      .getElementById(
+        "checksUnidades"
+      )
+      .innerHTML =
+      "";
+
+    return;
+
+  }
+
+
+  const data =
+    await getApi(
+
+      "action=adminHabilitaciones" +
+
+      "&registro=" +
+
+      encodeURIComponent(
+        registro
+      )
 
     );
 
-  </script>
+
+  if (!data.ok) {
+
+    alert(
+      data.mensaje ||
+      "No fue posible cargar habilitaciones"
+    );
+
+    return;
+
+  }
+
+
+  const habilitadas =
+    new Set(
+      (data.habilitadas || [])
+        .map(String)
+    );
+
+
+  const bombero =
+    listaConductores.find(
+
+      b =>
+        String(b.registro) ===
+        String(registro)
+
+    );
+
+
+  document
+    .getElementById(
+      "datosConductor"
+    )
+    .textContent =
+
+    bombero
+
+      ? (
+        (bombero.cargo || "Bombero") +
+
+        " · " +
+
+        nombreCuartel(
+          bombero.cuartel
+        )
+      )
+
+      : "";
+
+
+  document
+    .getElementById(
+      "checksUnidades"
+    )
+    .innerHTML =
+
+    (data.unidades || [])
+      .map(
+        unidad => `
+
+          <div class="check-unidad">
+
+            <label>
+
+              <input
+                class="unidadCheck"
+                type="checkbox"
+                value="${esc(
+                  unidad.unidad
+                )}"
+                ${
+                  habilitadas.has(
+                    String(
+                      unidad.unidad
+                    )
+                  )
+                    ? "checked"
+                    : ""
+                }
+              >
+
+              <span>
+
+                <strong>
+                  ${esc(unidad.unidad)}
+                </strong>
+
+                <br>
+
+                <span class="small">
+
+                  ${esc(
+                    nombreCuartel(
+                      unidad.cuartel
+                    )
+                  )}
+
+                </span>
+
+              </span>
+
+            </label>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+async function guardarHabilitaciones() {
+
+  const registro =
+    document
+      .getElementById(
+        "selectConductor"
+      )
+      .value;
+
+
+  if (!registro) {
+
+    alert(
+      "Selecciona un bombero"
+    );
+
+    return;
+
+  }
+
+
+  const unidades =
+
+    Array
+      .from(
+        document.querySelectorAll(
+          ".unidadCheck:checked"
+        )
+      )
+      .map(
+        input =>
+          input.value
+      );
+
+
+  const params =
+    new URLSearchParams({
+
+      action:
+        "guardarHabilitaciones",
+
+      registro,
+
+      unidades:
+        unidades.join(",")
+
+    });
+
+
+  const data =
+    await getApi(
+      params.toString()
+    );
+
+
+  alert(
+    data.mensaje || ""
+  );
+
+
+  if (data.ok) {
+
+    cargarHabilitacionesSeleccionado();
+
+  }
+
+}
+
+
+/* ==========================================
+   CONFIGURACIÓN
+=========================================== */
+
+async function cargarConfiguracion() {
+
+  try {
+
+    const data =
+      await getApi(
+        "action=adminConfiguracion"
+      );
+
+
+    if (!data.ok) {
+
+      alert(
+        data.mensaje ||
+        "Error cargando configuración"
+      );
+
+      return;
+
+    }
+
+
+    document
+      .getElementById(
+        "listaConfiguracion"
+      )
+      .innerHTML =
+
+      (data.configuracion || [])
+        .map(
+          (config, indice) => `
+
+            <div class="config-card">
+
+              <strong>
+                ${esc(config.clave)}
+              </strong>
+
+              <input
+                id="config-${indice}"
+                value="${esc(
+                  config.valor
+                )}"
+              >
+
+              <button
+                class="btn btn-primary"
+                onclick="
+                  guardarConfig(
+                    '${esc(config.clave)}',
+                    'config-${indice}'
+                  )
+                "
+              >
+                Guardar
+              </button>
+
+            </div>
+
+          `
+        )
+        .join("");
+
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert(
+      "Error cargando configuración"
+    );
+
+  }
+
+}
+
+
+async function guardarConfig(
+  clave,
+  inputId
+) {
+
+  const valor =
+    document
+      .getElementById(
+        inputId
+      )
+      .value;
+
+
+  const params =
+    new URLSearchParams({
+
+      action:
+        "guardarConfiguracion",
+
+      clave,
+
+      valor
+
+    });
+
+
+  const data =
+    await getApi(
+      params.toString()
+    );
+
+
+  alert(
+    data.mensaje || ""
+  );
+
+}
+
+
+async function agregarConfiguracion() {
+
+  const clave =
+    prompt(
+      "Nueva clave de configuración:"
+    );
+
+
+  if (!clave) {
+    return;
+  }
+
+
+  const valor =
+    prompt(
+      "Valor inicial:"
+    ) ?? "";
+
+
+  const params =
+    new URLSearchParams({
+
+      action:
+        "guardarConfiguracion",
+
+      clave,
+
+      valor
+
+    });
+
+
+  const data =
+    await getApi(
+      params.toString()
+    );
+
+
+  alert(
+    data.mensaje || ""
+  );
+
+
+  if (data.ok) {
+
+    cargarConfiguracion();
+
+  }
+
+}
+
+
+/* ==========================================
+   RECUPERAR SESIÓN
+=========================================== */
+
+window.addEventListener(
+  "DOMContentLoaded",
+  () => {
+
+    const sesion =
+      sessionStorage.getItem(
+        "cba_admin"
+      );
+
+
+    if (!sesion) {
+      return;
+    }
+
+
+    try {
+
+      usuarioActual =
+        JSON.parse(
+          sesion
+        );
+
+
+      if (
+        String(
+          usuarioActual.rol
+        )
+          .toUpperCase() ===
+        "ADMIN"
+      ) {
+
+        mostrarAdmin();
+
+      }
+
+
+    } catch (error) {
+
+      sessionStorage.removeItem(
+        "cba_admin"
+      );
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   CERRAR MODAL AL TOCAR FONDO
+=========================================== */
+
+document
+  .querySelectorAll(
+    ".modal-bg"
+  )
+  .forEach(
+    modal => {
+
+      modal.addEventListener(
+        "click",
+        event => {
+
+          if (
+            event.target === modal
+          ) {
+
+            modal.style.display =
+              "none";
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+</script>
 
 </body>
 
