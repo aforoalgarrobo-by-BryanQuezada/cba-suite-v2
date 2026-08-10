@@ -1,2 +1,1628 @@
 <!DOCTYPE html>
-<html lang="es"><head><meta charset="UTF-8"><title>CBA Suite Admin</title><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="stylesheet" href="css/admin.css"></head><body><header><h1>CBA Suite - Administración</h1></header><main><h2>Próxima etapa</h2><p>Este módulo quedará preparado para administrar bomberos, unidades, fotos y habilitaciones sin abrir Google Sheets.</p></main></body></html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    CBA Suite - Administración
+  </title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f4f6;
+      color: #1f2937;
+    }
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    #loginView {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.12);
+    }
+
+    .login-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .login-title h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .login-title p {
+      margin-top: 8px;
+      color: #6b7280;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: #374151;
+    }
+
+    .btn-login {
+      width: 100%;
+      border: none;
+      background: #111827;
+      color: white;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .btn-login:hover {
+      background: #1f2937;
+    }
+
+    .btn-login:disabled {
+      opacity: 0.6;
+      cursor: wait;
+    }
+
+    #loginMensaje {
+      margin-top: 15px;
+      text-align: center;
+      min-height: 20px;
+      color: #dc2626;
+    }
+
+    /* =====================================================
+       ADMINISTRACIÓN
+    ===================================================== */
+
+    #adminView {
+      display: none;
+    }
+
+    .topbar {
+      height: 70px;
+      background: #111827;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 25px;
+    }
+
+    .topbar h1 {
+      font-size: 22px;
+      margin: 0;
+    }
+
+    .usuario-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .usuario-info {
+      text-align: right;
+      font-size: 14px;
+    }
+
+    .usuario-info span {
+      display: block;
+      opacity: 0.7;
+      font-size: 12px;
+    }
+
+    .btn-salir {
+      border: 1px solid rgba(255,255,255,0.4);
+      background: transparent;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .btn-salir:hover {
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* =====================================================
+       NAVEGACIÓN
+    ===================================================== */
+
+    .tabs {
+      background: white;
+      display: flex;
+      gap: 5px;
+      padding: 12px 25px;
+      border-bottom: 1px solid #e5e7eb;
+      overflow-x: auto;
+    }
+
+    .tab {
+      border: none;
+      background: transparent;
+      padding: 11px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .tab.active {
+      background: #111827;
+      color: white;
+    }
+
+    .tab.disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    /* =====================================================
+       CONTENIDO
+    ===================================================== */
+
+    .container {
+      max-width: 1400px;
+      margin: auto;
+      padding: 25px;
+    }
+
+    .titulo-seccion {
+      margin-bottom: 20px;
+    }
+
+    .titulo-seccion h2 {
+      margin-bottom: 5px;
+    }
+
+    .titulo-seccion p {
+      margin: 0;
+      color: #6b7280;
+    }
+
+    /* =====================================================
+       FILTROS
+    ===================================================== */
+
+    .filtros {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 20px;
+      display: grid;
+      grid-template-columns:
+        minmax(250px, 1fr)
+        200px
+        180px
+        auto;
+      gap: 12px;
+      align-items: center;
+      box-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.05);
+    }
+
+    .filtros input,
+    .filtros select {
+      width: 100%;
+      padding: 11px;
+      border: 1px solid #d1d5db;
+      border-radius: 7px;
+      font-size: 14px;
+    }
+
+    .checkbox-area {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      white-space: nowrap;
+    }
+
+    .checkbox-area input {
+      width: auto;
+    }
+
+    .btn-buscar {
+      border: none;
+      background: #2563eb;
+      color: white;
+      padding: 11px 20px;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .btn-buscar:hover {
+      background: #1d4ed8;
+    }
+
+    /* =====================================================
+       RESUMEN
+    ===================================================== */
+
+    .resumen {
+      margin-bottom: 12px;
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+    /* =====================================================
+       TABLA
+    ===================================================== */
+
+    .tabla-contenedor {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 2px 8px
+        rgba(0,0,0,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    thead {
+      background: #f9fafb;
+    }
+
+    th,
+    td {
+      padding: 13px 15px;
+      border-bottom: 1px solid #e5e7eb;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    th {
+      font-weight: 600;
+      color: #4b5563;
+    }
+
+    tr:hover td {
+      background: #f9fafb;
+    }
+
+    .foto {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #e5e7eb;
+    }
+
+    .nombre {
+      font-weight: 600;
+    }
+
+    .rut {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 5px 9px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge-activo {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-inactivo {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .badge-cuartelero {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+
+    .btn-editar {
+      border: 1px solid #d1d5db;
+      background: white;
+      padding: 7px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn-editar:hover {
+      background: #f3f4f6;
+    }
+
+    /* =====================================================
+       ESTADOS
+    ===================================================== */
+
+    .cargando,
+    .sin-resultados {
+      padding: 50px;
+      text-align: center;
+      color: #6b7280;
+    }
+
+    /* =====================================================
+       MÓVIL
+    ===================================================== */
+
+    @media (max-width: 900px) {
+
+      .filtros {
+        grid-template-columns: 1fr;
+      }
+
+      .tabla-contenedor {
+        overflow-x: auto;
+      }
+
+      table {
+        min-width: 850px;
+      }
+
+      .topbar {
+        padding: 0 15px;
+      }
+
+      .usuario-info {
+        display: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- =====================================================
+       LOGIN
+  ====================================================== -->
+
+  <div id="loginView">
+
+    <div class="login-box">
+
+      <div class="login-title">
+
+        <h1>
+          CBA Suite
+        </h1>
+
+        <p>
+          Administración
+        </p>
+
+      </div>
+
+      <form
+        id="loginForm"
+        onsubmit="iniciarSesion(event)"
+      >
+
+        <div class="form-group">
+
+          <label for="usuario">
+            Usuario
+          </label>
+
+          <input
+            id="usuario"
+            type="text"
+            autocomplete="username"
+            required
+          >
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="clave">
+            Contraseña
+          </label>
+
+          <input
+            id="clave"
+            type="password"
+            autocomplete="current-password"
+            required
+          >
+
+        </div>
+
+        <button
+          id="btnLogin"
+          class="btn-login"
+          type="submit"
+        >
+          Ingresar
+        </button>
+
+        <div id="loginMensaje"></div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       ADMINISTRACIÓN
+  ====================================================== -->
+
+  <div id="adminView">
+
+    <header class="topbar">
+
+      <h1>
+        CBA Suite — Administración
+      </h1>
+
+      <div class="usuario-area">
+
+        <div class="usuario-info">
+
+          <strong id="nombreUsuario">
+            -
+          </strong>
+
+          <span id="rolUsuario">
+            -
+          </span>
+
+        </div>
+
+        <button
+          class="btn-salir"
+          onclick="cerrarSesion()"
+        >
+          Salir
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <nav class="tabs">
+
+      <button
+        class="tab active"
+      >
+        Bomberos
+      </button>
+
+      <button
+        class="tab disabled"
+        title="Próxima etapa"
+      >
+        Unidades
+      </button>
+
+      <button
+        class="tab disabled"
+        title="Próxima etapa"
+      >
+        Conductores
+      </button>
+
+      <button
+        class="tab disabled"
+        title="Próxima etapa"
+      >
+        Configuración
+      </button>
+
+    </nav>
+
+
+    <main class="container">
+
+      <div class="titulo-seccion">
+
+        <h2>
+          Bomberos
+        </h2>
+
+        <p>
+          Consulta y administración del personal registrado.
+        </p>
+
+      </div>
+
+
+      <!-- FILTROS -->
+
+      <div class="filtros">
+
+        <input
+          id="buscar"
+          type="text"
+          placeholder="Buscar por nombre, RUT o registro..."
+          onkeyup="buscarEnter(event)"
+        >
+
+
+        <select id="filtroCuartel">
+
+          <option value="">
+            Todos los cuarteles
+          </option>
+
+          <option value="1">
+            1ª Compañía
+          </option>
+
+          <option value="2">
+            2ª Compañía
+          </option>
+
+          <option value="3">
+            3ª Compañía
+          </option>
+
+          <option value="general">
+            Cuartel General
+          </option>
+
+        </select>
+
+
+        <label class="checkbox-area">
+
+          <input
+            id="soloActivos"
+            type="checkbox"
+          >
+
+          Solo activos
+
+        </label>
+
+
+        <button
+          class="btn-buscar"
+          onclick="cargarBomberos()"
+        >
+          Buscar
+        </button>
+
+      </div>
+
+
+      <div
+        id="resumen"
+        class="resumen"
+      >
+      </div>
+
+
+      <!-- TABLA -->
+
+      <div class="tabla-contenedor">
+
+        <div
+          id="estadoCarga"
+          class="cargando"
+        >
+          Cargando...
+        </div>
+
+        <table
+          id="tablaBomberos"
+          style="display:none;"
+        >
+
+          <thead>
+
+            <tr>
+
+              <th>
+                Foto
+              </th>
+
+              <th>
+                Registro
+              </th>
+
+              <th>
+                Bombero
+              </th>
+
+              <th>
+                Cargo
+              </th>
+
+              <th>
+                Cuartel
+              </th>
+
+              <th>
+                Estado
+              </th>
+
+              <th>
+                Cuartelero
+              </th>
+
+              <th>
+                Acción
+              </th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="tablaBody">
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </main>
+
+  </div>
+
+
+  <!-- =====================================================
+       CONFIGURACIÓN
+  ====================================================== -->
+
+  <script src="js/config.js"></script>
+
+
+  <script>
+
+    let usuarioActual = null;
+
+
+    /* =====================================================
+       LOGIN
+    ===================================================== */
+
+    async function iniciarSesion(event) {
+
+      event.preventDefault();
+
+
+      const usuario =
+        document
+          .getElementById("usuario")
+          .value
+          .trim();
+
+
+      const clave =
+        document
+          .getElementById("clave")
+          .value
+          .trim();
+
+
+      const mensaje =
+        document
+          .getElementById("loginMensaje");
+
+
+      const boton =
+        document
+          .getElementById("btnLogin");
+
+
+      mensaje.textContent =
+        "Validando...";
+
+
+      mensaje.style.color =
+        "#6b7280";
+
+
+      boton.disabled =
+        true;
+
+
+      try {
+
+
+        const url =
+          CONFIG.API_URL +
+
+          "?action=login" +
+
+          "&usuario=" +
+          encodeURIComponent(usuario) +
+
+          "&clave=" +
+          encodeURIComponent(clave);
+
+
+        const respuesta =
+          await fetch(url);
+
+
+        const data =
+          await respuesta.json();
+
+
+        if (!data.ok) {
+
+          mensaje.textContent =
+            data.mensaje ||
+            "No fue posible iniciar sesión";
+
+
+          mensaje.style.color =
+            "#dc2626";
+
+
+          boton.disabled =
+            false;
+
+
+          return;
+
+        }
+
+
+        /* =============================
+           VALIDAMOS ROL
+        ============================= */
+
+        if (
+
+          String(data.rol)
+            .toUpperCase() !== "ADMIN"
+
+        ) {
+
+
+          mensaje.textContent =
+            "Este usuario no tiene permisos de administración";
+
+
+          mensaje.style.color =
+            "#dc2626";
+
+
+          boton.disabled =
+            false;
+
+
+          return;
+
+        }
+
+
+        usuarioActual = {
+
+          usuario:
+            data.usuario,
+
+          rol:
+            data.rol,
+
+          cuartel:
+            data.cuartel
+
+        };
+
+
+        /*
+         * Guardamos únicamente los datos
+         * básicos de la sesión.
+         *
+         * NO guardamos la contraseña.
+         */
+
+        sessionStorage.setItem(
+
+          "cba_admin",
+
+          JSON.stringify(
+            usuarioActual
+          )
+
+        );
+
+
+        mostrarAdministracion();
+
+
+      } catch (error) {
+
+
+        console.error(error);
+
+
+        mensaje.textContent =
+          "Error de conexión con el servidor";
+
+
+        mensaje.style.color =
+          "#dc2626";
+
+
+        boton.disabled =
+          false;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       MOSTRAR ADMINISTRACIÓN
+    ===================================================== */
+
+    function mostrarAdministracion() {
+
+      document
+        .getElementById("loginView")
+        .style.display =
+        "none";
+
+
+      document
+        .getElementById("adminView")
+        .style.display =
+        "block";
+
+
+      document
+        .getElementById("nombreUsuario")
+        .textContent =
+        usuarioActual.usuario;
+
+
+      document
+        .getElementById("rolUsuario")
+        .textContent =
+        usuarioActual.rol;
+
+
+      cargarBomberos();
+
+    }
+
+
+    /* =====================================================
+       CERRAR SESIÓN
+    ===================================================== */
+
+    function cerrarSesion() {
+
+      sessionStorage.removeItem(
+        "cba_admin"
+      );
+
+
+      usuarioActual =
+        null;
+
+
+      document
+        .getElementById("adminView")
+        .style.display =
+        "none";
+
+
+      document
+        .getElementById("loginView")
+        .style.display =
+        "flex";
+
+
+      document
+        .getElementById("clave")
+        .value =
+        "";
+
+
+      document
+        .getElementById("loginMensaje")
+        .textContent =
+        "";
+
+    }
+
+
+    /* =====================================================
+       CARGAR BOMBEROS
+    ===================================================== */
+
+    async function cargarBomberos() {
+
+      const estadoCarga =
+        document
+          .getElementById("estadoCarga");
+
+
+      const tabla =
+        document
+          .getElementById("tablaBomberos");
+
+
+      estadoCarga.style.display =
+        "block";
+
+
+      estadoCarga.textContent =
+        "Cargando bomberos...";
+
+
+      tabla.style.display =
+        "none";
+
+
+      const buscar =
+        document
+          .getElementById("buscar")
+          .value
+          .trim();
+
+
+      const cuartel =
+        document
+          .getElementById("filtroCuartel")
+          .value;
+
+
+      const soloActivos =
+        document
+          .getElementById("soloActivos")
+          .checked;
+
+
+      try {
+
+
+        let url =
+          CONFIG.API_URL +
+          "?action=adminBomberos";
+
+
+        if (buscar) {
+
+          url +=
+
+            "&buscar=" +
+
+            encodeURIComponent(
+              buscar
+            );
+
+        }
+
+
+        if (cuartel) {
+
+          url +=
+
+            "&cuartel=" +
+
+            encodeURIComponent(
+              cuartel
+            );
+
+        }
+
+
+        if (soloActivos) {
+
+          url +=
+            "&soloActivos=SI";
+
+        }
+
+
+        const respuesta =
+          await fetch(url);
+
+
+        const data =
+          await respuesta.json();
+
+
+        if (!data.ok) {
+
+          estadoCarga.textContent =
+            data.mensaje ||
+            "No fue posible cargar los bomberos";
+
+
+          return;
+
+        }
+
+
+        mostrarBomberos(
+          data.bomberos || []
+        );
+
+
+      } catch (error) {
+
+
+        console.error(error);
+
+
+        estadoCarga.textContent =
+          "Error al conectar con la base de datos";
+
+      }
+
+    }
+
+
+    /* =====================================================
+       MOSTRAR BOMBEROS
+    ===================================================== */
+
+    function mostrarBomberos(bomberos) {
+
+      const body =
+        document
+          .getElementById("tablaBody");
+
+
+      const tabla =
+        document
+          .getElementById("tablaBomberos");
+
+
+      const estadoCarga =
+        document
+          .getElementById("estadoCarga");
+
+
+      const resumen =
+        document
+          .getElementById("resumen");
+
+
+      body.innerHTML =
+        "";
+
+
+      resumen.textContent =
+
+        bomberos.length === 1
+
+          ? "1 bombero encontrado"
+
+          : `${bomberos.length} bomberos encontrados`;
+
+
+      if (
+        bomberos.length === 0
+      ) {
+
+
+        estadoCarga.style.display =
+          "block";
+
+
+        estadoCarga.textContent =
+          "No se encontraron bomberos";
+
+
+        tabla.style.display =
+          "none";
+
+
+        return;
+
+      }
+
+
+      bomberos.forEach(
+        bombero => {
+
+
+          const fila =
+            document.createElement(
+              "tr"
+            );
+
+
+          /* =============================
+             FOTO
+          ============================= */
+
+          const tdFoto =
+            document.createElement(
+              "td"
+            );
+
+
+          const foto =
+            document.createElement(
+              "img"
+            );
+
+
+          foto.className =
+            "foto";
+
+
+          foto.src =
+            bombero.foto ||
+            CONFIG.FOTO_DEFAULT;
+
+
+          foto.onerror =
+            function () {
+
+              this.onerror =
+                null;
+
+              this.src =
+                CONFIG.FOTO_DEFAULT;
+
+            };
+
+
+          tdFoto.appendChild(
+            foto
+          );
+
+
+          /* =============================
+             REGISTRO
+          ============================= */
+
+          const tdRegistro =
+            document.createElement(
+              "td"
+            );
+
+
+          tdRegistro.textContent =
+            bombero.registro ||
+            "-";
+
+
+          /* =============================
+             NOMBRE / RUT
+          ============================= */
+
+          const tdNombre =
+            document.createElement(
+              "td"
+            );
+
+
+          const nombre =
+            document.createElement(
+              "div"
+            );
+
+
+          nombre.className =
+            "nombre";
+
+
+          nombre.textContent =
+            bombero.nombre ||
+            "Sin nombre";
+
+
+          const rut =
+            document.createElement(
+              "div"
+            );
+
+
+          rut.className =
+            "rut";
+
+
+          rut.textContent =
+            bombero.rut ||
+            "";
+
+
+          tdNombre.appendChild(
+            nombre
+          );
+
+
+          tdNombre.appendChild(
+            rut
+          );
+
+
+          /* =============================
+             CARGO
+          ============================= */
+
+          const tdCargo =
+            document.createElement(
+              "td"
+            );
+
+
+          tdCargo.textContent =
+            bombero.cargo ||
+            "-";
+
+
+          /* =============================
+             CUARTEL
+          ============================= */
+
+          const tdCuartel =
+            document.createElement(
+              "td"
+            );
+
+
+          tdCuartel.textContent =
+
+            CONFIG.CUARTELES[
+              bombero.cuartel
+            ]
+
+            ||
+
+            bombero.cuartel
+
+            ||
+
+            "-";
+
+
+          /* =============================
+             ACTIVO
+          ============================= */
+
+          const tdEstado =
+            document.createElement(
+              "td"
+            );
+
+
+          const badgeEstado =
+            document.createElement(
+              "span"
+            );
+
+
+          const estaActivo =
+
+            String(
+              bombero.activo
+            )
+              .trim()
+              .toUpperCase() ===
+              "SI";
+
+
+          badgeEstado.className =
+
+            estaActivo
+
+              ? "badge badge-activo"
+
+              : "badge badge-inactivo";
+
+
+          badgeEstado.textContent =
+
+            estaActivo
+
+              ? "Activo"
+
+              : "Inactivo";
+
+
+          tdEstado.appendChild(
+            badgeEstado
+          );
+
+
+          /* =============================
+             CUARTELERO
+          ============================= */
+
+          const tdCuartelero =
+            document.createElement(
+              "td"
+            );
+
+
+          const esCuartelero =
+
+            String(
+              bombero.esCuartelero
+            )
+              .trim()
+              .toUpperCase() ===
+              "SI";
+
+
+          if (esCuartelero) {
+
+
+            const badge =
+              document.createElement(
+                "span"
+              );
+
+
+            badge.className =
+              "badge badge-cuartelero";
+
+
+            badge.textContent =
+              "Sí";
+
+
+            tdCuartelero.appendChild(
+              badge
+            );
+
+
+          } else {
+
+
+            tdCuartelero.textContent =
+              "No";
+
+          }
+
+
+          /* =============================
+             ACCIÓN
+          ============================= */
+
+          const tdAccion =
+            document.createElement(
+              "td"
+            );
+
+
+          const boton =
+            document.createElement(
+              "button"
+            );
+
+
+          boton.className =
+            "btn-editar";
+
+
+          boton.textContent =
+            "Editar";
+
+
+          /*
+           * Todavía no activamos la edición.
+           * Es la siguiente etapa.
+           */
+
+          boton.onclick =
+            function () {
+
+              alert(
+
+                "La edición de bomberos será la siguiente etapa."
+
+              );
+
+            };
+
+
+          tdAccion.appendChild(
+            boton
+          );
+
+
+          /* =============================
+             AGREGAR CELDAS
+          ============================= */
+
+          fila.appendChild(
+            tdFoto
+          );
+
+          fila.appendChild(
+            tdRegistro
+          );
+
+          fila.appendChild(
+            tdNombre
+          );
+
+          fila.appendChild(
+            tdCargo
+          );
+
+          fila.appendChild(
+            tdCuartel
+          );
+
+          fila.appendChild(
+            tdEstado
+          );
+
+          fila.appendChild(
+            tdCuartelero
+          );
+
+          fila.appendChild(
+            tdAccion
+          );
+
+
+          body.appendChild(
+            fila
+          );
+
+        }
+
+      );
+
+
+      estadoCarga.style.display =
+        "none";
+
+
+      tabla.style.display =
+        "table";
+
+    }
+
+
+    /* =====================================================
+       ENTER EN BÚSQUEDA
+    ===================================================== */
+
+    function buscarEnter(event) {
+
+      if (
+        event.key ===
+        "Enter"
+      ) {
+
+        cargarBomberos();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       RECUPERAR SESIÓN
+    ===================================================== */
+
+    window.addEventListener(
+
+      "DOMContentLoaded",
+
+      function () {
+
+
+        const guardado =
+          sessionStorage.getItem(
+            "cba_admin"
+          );
+
+
+        if (!guardado) {
+
+          document
+            .getElementById("estadoCarga")
+            .style.display =
+            "none";
+
+          return;
+
+        }
+
+
+        try {
+
+
+          usuarioActual =
+            JSON.parse(
+              guardado
+            );
+
+
+          if (
+
+            !usuarioActual ||
+
+            String(
+              usuarioActual.rol
+            )
+              .toUpperCase() !==
+              "ADMIN"
+
+          ) {
+
+
+            sessionStorage.removeItem(
+              "cba_admin"
+            );
+
+
+            return;
+
+          }
+
+
+          mostrarAdministracion();
+
+
+        } catch (error) {
+
+
+          sessionStorage.removeItem(
+            "cba_admin"
+          );
+
+        }
+
+      }
+
+    );
+
+  </script>
+
+</body>
+
+</html>
