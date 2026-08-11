@@ -1,1 +1,622 @@
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#e9ecef;color:#222}header{height:72px;background:#b40000;color:white;display:flex;align-items:center;justify-content:space-between;padding:0 26px}.titulo{font-size:28px;font-weight:bold}.hora{font-size:18px;font-weight:bold}.barra{height:68px;background:white;display:grid;grid-template-columns:1fr 160px;gap:20px;align-items:center;padding:10px 24px;box-shadow:0 2px 8px rgba(0,0,0,.18)}.barra input{width:100%;height:46px;font-size:22px;text-align:center;border-radius:10px;border:2px solid #bbb}.contador{background:#168a3a;color:white;border-radius:12px;text-align:center;padding:7px;font-weight:bold}.contador-num{font-size:28px;line-height:28px}.contador-texto{font-size:12px}.mensaje{height:28px;text-align:center;font-weight:bold;padding-top:5px}.layout{display:grid;grid-template-columns:255px 1fr;gap:16px;padding:16px}.unidades{display:flex;flex-direction:column;gap:12px}.unidad{background:white;border-radius:14px;padding:12px;cursor:pointer;min-height:132px;box-shadow:0 2px 8px rgba(0,0,0,.18);border-left:12px solid #999}.unidad:hover{transform:scale(1.01)}.unidad h2{margin:0;font-size:30px}.estado-unidad{font-weight:bold;margin:4px 0 8px}.unidad.sin-conductor{border-left-color:#d8a600}.unidad.disponible{border-left-color:#168a3a}.unidad.fuera-de-servicio{border-left-color:#c40000}.conductores{font-size:13px;line-height:19px}.personal{display:grid;grid-template-columns:repeat(auto-fill,minmax(135px,1fr));gap:14px;align-content:start}.bombero{background:white;border-radius:14px;overflow:hidden;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18);border:4px solid #aaa}.bombero:hover{transform:scale(1.02)}.bombero img{width:100%;height:145px;object-fit:cover;background:#ddd;display:block}.bombero-info{padding:8px;text-align:center}.nombre{font-weight:bold;font-size:14px;line-height:16px}.cargo{font-size:12px;color:#666;margin-top:2px}.estado{font-size:13px;font-weight:bold;margin-top:5px}.bombero.disponible{border-color:#168a3a}.bombero.no-disponible{border-color:#c40000}.bombero.en-capacitacion{border-color:#0066cc}.bombero.en-emergencia{border-color:#ff7a00}.modal-fondo{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:10}.modal{width:92%;max-width:620px;background:white;border-radius:18px;padding:20px;box-shadow:0 8px 30px rgba(0,0,0,.3)}.modal h2{margin-top:0;color:#b40000}.modal-opciones{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.btn{padding:12px;border:none;border-radius:10px;font-weight:bold;cursor:pointer;font-size:15px}.btn-verde{background:#168a3a;color:white}.btn-azul{background:#0066cc;color:white}.btn-rojo{background:#c40000;color:white}.btn-gris{background:#ddd;color:#222}.lista-conductores{margin-top:16px;max-height:300px;overflow-y:auto;display:none}.conductor-item{display:flex;align-items:center;gap:12px;padding:10px;border-bottom:1px solid #ddd;cursor:pointer}.conductor-item:hover{background:#f1f1f1}.conductor-item img{width:48px;height:48px;border-radius:50%;object-fit:cover;background:#ddd}@media(max-width:850px){header{height:auto;flex-direction:column;padding:12px;gap:8px}.barra{grid-template-columns:1fr;height:auto}.layout{grid-template-columns:1fr}.personal{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #e9ecef;
+  color: #222;
+}
+
+
+/* ==========================================
+   HEADER
+=========================================== */
+
+header {
+  min-height: 72px;
+  background: #b40000;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 8px 26px;
+}
+
+
+.marca-cuartel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+
+.logo-cuartel {
+  width: 58px;
+  height: 58px;
+
+  object-fit: contain;
+
+  background: white;
+
+  border-radius: 50%;
+
+  padding: 3px;
+}
+
+
+.titulo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+
+.hora {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+
+/* ==========================================
+   BARRA SUPERIOR
+=========================================== */
+
+.barra {
+  min-height: 68px;
+  background: white;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 160px;
+
+  gap: 20px;
+
+  align-items: center;
+
+  padding: 10px 24px;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.18);
+}
+
+
+.barra input {
+  width: 100%;
+  height: 46px;
+
+  font-size: 22px;
+  text-align: center;
+
+  border-radius: 10px;
+
+  border:
+    2px solid #bbb;
+}
+
+
+/* ==========================================
+   CONTADOR
+=========================================== */
+
+.contador {
+  background: #168a3a;
+  color: white;
+
+  border-radius: 12px;
+
+  text-align: center;
+
+  padding: 7px;
+
+  font-weight: bold;
+}
+
+
+.contador-num {
+  font-size: 28px;
+  line-height: 28px;
+}
+
+
+.contador-texto {
+  font-size: 12px;
+}
+
+
+/* ==========================================
+   MENSAJE
+=========================================== */
+
+.mensaje {
+  height: 28px;
+
+  text-align: center;
+
+  font-weight: bold;
+
+  padding-top: 5px;
+}
+
+
+/* ==========================================
+   LAYOUT
+=========================================== */
+
+.layout {
+  display: grid;
+
+  grid-template-columns:
+    255px 1fr;
+
+  gap: 16px;
+
+  padding: 16px;
+}
+
+
+/* ==========================================
+   UNIDADES
+=========================================== */
+
+.unidades {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+
+.unidad {
+  background: white;
+
+  border-radius: 14px;
+
+  padding: 12px;
+
+  cursor: pointer;
+
+  min-height: 132px;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.18);
+
+  border-left:
+    12px solid #999;
+
+  transition:
+    transform .15s;
+}
+
+
+.unidad:hover {
+  transform:
+    scale(1.01);
+}
+
+
+.unidad h2 {
+  margin: 0;
+
+  font-size: 30px;
+}
+
+
+.estado-unidad {
+  font-weight: bold;
+
+  margin:
+    4px 0 8px;
+}
+
+
+.unidad.sin-conductor {
+  border-left-color:
+    #d8a600;
+}
+
+
+.unidad.disponible {
+  border-left-color:
+    #168a3a;
+}
+
+
+.unidad.fuera-de-servicio {
+  border-left-color:
+    #c40000;
+}
+
+
+.conductores {
+  font-size: 13px;
+
+  line-height: 19px;
+}
+
+
+/* ==========================================
+   PERSONAL
+=========================================== */
+
+.personal {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(135px,1fr)
+    );
+
+  gap: 14px;
+
+  align-content: start;
+}
+
+
+.bombero {
+  background: white;
+
+  border-radius: 14px;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 2px 8px
+    rgba(0,0,0,.18);
+
+  border:
+    4px solid #aaa;
+
+  transition:
+    transform .15s;
+}
+
+
+.bombero:hover {
+  transform:
+    scale(1.02);
+}
+
+
+.bombero img {
+  width: 100%;
+  height: 145px;
+
+  object-fit: cover;
+
+  background: #ddd;
+
+  display: block;
+}
+
+
+.bombero-info {
+  padding: 8px;
+
+  text-align: center;
+}
+
+
+.nombre {
+  font-weight: bold;
+
+  font-size: 14px;
+
+  line-height: 16px;
+}
+
+
+.cargo {
+  font-size: 12px;
+
+  color: #666;
+
+  margin-top: 2px;
+}
+
+
+.estado {
+  font-size: 13px;
+
+  font-weight: bold;
+
+  margin-top: 5px;
+}
+
+
+/* ==========================================
+   ETIQUETA CUARTELERO
+=========================================== */
+
+.etiqueta-cuartelero {
+  display: inline-block;
+
+  margin-top: 5px;
+
+  padding:
+    3px 7px;
+
+  border-radius: 999px;
+
+  background:
+    #e0e7ff;
+
+  color:
+    #3730a3;
+
+  font-size: 10px;
+
+  font-weight: bold;
+}
+
+
+/* ==========================================
+   ESTADOS BOMBERO
+=========================================== */
+
+.bombero.disponible {
+  border-color:
+    #168a3a;
+}
+
+
+.bombero.no-disponible {
+  border-color:
+    #c40000;
+}
+
+
+.bombero.en-capacitacion {
+  border-color:
+    #0066cc;
+}
+
+
+.bombero.en-emergencia {
+  border-color:
+    #ff7a00;
+}
+
+
+/* ==========================================
+   MODAL
+=========================================== */
+
+.modal-fondo {
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    rgba(0,0,0,.55);
+
+  display: none;
+
+  align-items: center;
+  justify-content: center;
+
+  z-index: 10;
+}
+
+
+.modal {
+  width: 92%;
+
+  max-width: 620px;
+
+  background: white;
+
+  border-radius: 18px;
+
+  padding: 20px;
+
+  box-shadow:
+    0 8px 30px
+    rgba(0,0,0,.3);
+}
+
+
+.modal h2 {
+  margin-top: 0;
+
+  color:
+    #b40000;
+}
+
+
+.modal-opciones {
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 14px;
+}
+
+
+/* ==========================================
+   BOTONES
+=========================================== */
+
+.btn {
+  padding: 12px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  font-size: 15px;
+}
+
+
+.btn-verde {
+  background:
+    #168a3a;
+
+  color:
+    white;
+}
+
+
+.btn-azul {
+  background:
+    #0066cc;
+
+  color:
+    white;
+}
+
+
+.btn-rojo {
+  background:
+    #c40000;
+
+  color:
+    white;
+}
+
+
+.btn-gris {
+  background:
+    #ddd;
+
+  color:
+    #222;
+}
+
+
+/* ==========================================
+   LISTA CONDUCTORES
+=========================================== */
+
+.lista-conductores {
+  margin-top: 16px;
+
+  max-height: 300px;
+
+  overflow-y: auto;
+
+  display: none;
+}
+
+
+.conductor-item {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 10px;
+
+  border-bottom:
+    1px solid #ddd;
+
+  cursor: pointer;
+}
+
+
+.conductor-item:hover {
+  background:
+    #f1f1f1;
+}
+
+
+.conductor-item img {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+
+  background:
+    #ddd;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+=========================================== */
+
+@media (
+  max-width: 850px
+) {
+
+  header {
+    height: auto;
+
+    flex-direction: column;
+
+    padding: 12px;
+
+    gap: 8px;
+  }
+
+
+  .marca-cuartel {
+    flex-direction: column;
+
+    gap: 6px;
+  }
+
+
+  .logo-cuartel {
+    width: 64px;
+    height: 64px;
+  }
+
+
+  .barra {
+    grid-template-columns:
+      1fr;
+
+    height: auto;
+  }
+
+
+  .layout {
+    grid-template-columns:
+      1fr;
+  }
+
+
+  .unidades {
+    display: grid;
+
+    grid-template-columns:
+      repeat(
+        auto-fit,
+        minmax(180px,1fr)
+      );
+  }
+
+
+  .personal {
+    grid-template-columns:
+      repeat(
+        auto-fill,
+        minmax(120px,1fr)
+      );
+  }
+
+
+  .modal-opciones {
+    grid-template-columns:
+      1fr;
+  }
+
+}
