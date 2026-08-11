@@ -22,16 +22,16 @@ const CONFIG = {
   LOGOS: {
 
     "1":
-      "img/logo-c1.png",
+      "img/c1.png",
 
     "2":
-      "img/logo-c2.png",
+      "img/c2.png",
 
     "3":
-      "img/logo-c3.png",
+      "img/c3.png",
 
     "general":
-      "img/logo-general.png"
+      "img/cg.png"
 
   },
 
