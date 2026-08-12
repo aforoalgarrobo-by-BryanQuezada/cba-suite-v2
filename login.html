@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    CBA Suite - Acceso
+  </title>
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f4f6;
+
+      min-height: 100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 20px;
+    }
+
+    .login-box {
+      width: 100%;
+      max-width: 420px;
+
+      background: white;
+
+      border-radius: 16px;
+
+      padding: 30px;
+
+      box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.12);
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0;
+    }
+
+    .subtitulo {
+      text-align: center;
+      color: #6b7280;
+      margin-bottom: 25px;
+    }
+
+    .campo {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input {
+      width: 100%;
+
+      padding: 12px;
+
+      border:
+        1px solid #d1d5db;
+
+      border-radius: 8px;
+
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+
+      padding: 13px;
+
+      border: none;
+
+      border-radius: 8px;
+
+      background:
+        #111827;
+
+      color: white;
+
+      font-size: 16px;
+
+      cursor: pointer;
+    }
+
+    #mensaje {
+      text-align: center;
+
+      margin-top: 15px;
+
+      min-height: 20px;
+
+      color:
+        #b91c1c;
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <div class="login-box">
+
+    <h1>
+      CBA Suite
+    </h1>
+
+    <div class="subtitulo">
+      Acceso al sistema
+    </div>
+
+    <form
+      onsubmit="iniciarSesion(event)"
+    >
+
+      <div class="campo">
+
+        <label>
+          Usuario
+        </label>
+
+        <input
+          id="usuario"
+          required
+          autocomplete="username"
+        >
+
+      </div>
+
+      <div class="campo">
+
+        <label>
+          Contraseña
+        </label>
+
+        <input
+          id="clave"
+          type="password"
+          required
+          autocomplete="current-password"
+        >
+
+      </div>
+
+      <button type="submit">
+        Ingresar
+      </button>
+
+      <div id="mensaje"></div>
+
+    </form>
+
+  </div>
+
+
+  <script src="js/config.js"></script>
+
+
+  <script>
+
+    async function iniciarSesion(event) {
+
+      event.preventDefault();
+
+      const usuario =
+        document
+          .getElementById("usuario")
+          .value
+          .trim();
+
+      const clave =
+        document
+          .getElementById("clave")
+          .value
+          .trim();
+
+      const mensaje =
+        document
+          .getElementById("mensaje");
+
+      mensaje.textContent =
+        "Validando...";
+
+      try {
+
+        const url =
+          CONFIG.API_URL +
+
+          "?action=login" +
+
+          "&usuario=" +
+          encodeURIComponent(usuario) +
+
+          "&clave=" +
+          encodeURIComponent(clave);
+
+        const respuesta =
+          await fetch(url);
+
+        const data =
+          await respuesta.json();
+
+        if (!data.ok) {
+
+          mensaje.textContent =
+            data.mensaje ||
+            "Usuario o contraseña incorrectos";
+
+          return;
+        }
+
+        const rol =
+          String(data.rol || "")
+            .trim()
+            .toUpperCase();
+
+        const cuartel =
+          String(data.cuartel || "")
+            .trim();
+
+        const sesion = {
+
+          usuario:
+            data.usuario,
+
+          rol:
+            rol,
+
+          cuartel:
+            cuartel
+
+        };
+
+        sessionStorage.setItem(
+
+          "cba_usuario",
+
+          JSON.stringify(
+            sesion
+          )
+
+        );
+
+        /* =========================
+           ADMIN
+        ========================= */
+
+        if (
+          rol === "ADMIN"
+        ) {
+
+          sessionStorage.setItem(
+
+            "cba_admin",
+
+            JSON.stringify(
+              sesion
+            )
+
+          );
+
+          window.location.href =
+            "admin.html";
+
+          return;
+        }
+
+        /* =========================
+           CENTRAL
+        ========================= */
+
+        if (
+          rol === "CENTRAL"
+        ) {
+
+          window.location.href =
+            "central.html";
+
+          return;
+        }
+
+        /* =========================
+           CUARTEL
+        ========================= */
+
+        if (
+          rol === "CUARTEL"
+        ) {
+
+          if (
+            ![
+              "1",
+              "2",
+              "3",
+              "general"
+            ]
+            .includes(
+              cuartel
+            )
+          ) {
+
+            mensaje.textContent =
+              "Cuartel asignado no válido.";
+
+            return;
+          }
+
+          window.location.href =
+
+            "panel.html?cuartel=" +
+
+            encodeURIComponent(
+              cuartel
+            );
+
+          return;
+        }
+
+        mensaje.textContent =
+          "Rol no reconocido.";
+
+      } catch (error) {
+
+        console.error(error);
+
+        mensaje.textContent =
+          "Error de conexión con el servidor";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+
+</html>
